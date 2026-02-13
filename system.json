@@ -6,6 +6,10 @@
     "minimum": "13",
     "verified": "13"
   },
+
+  "manifest": "https://raw.githubusercontent.com/eldwind/cops-foundryvtt/main/system.json",
+  "download": "https://github.com/eldwind/cops-foundryvtt/releases/download/1.0.0/cops.zip",
+
   "esmodules": [
     "scripts/main.js"
   ],
