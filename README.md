@@ -1,5 +1,10 @@
 # COPS – Foundry VTT System
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Foundry VTT](https://img.shields.io/badge/FoundryVTT-v13-informational)
+![System](https://img.shields.io/badge/system-COPS-black)
+
+
 Implémentation du jeu de rôle **C.O.P.S** pour Foundry Virtual Tabletop.
 
 Compatible Foundry VTT v13.
