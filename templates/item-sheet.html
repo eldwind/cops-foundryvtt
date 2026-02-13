@@ -1,0 +1,388 @@
+<div class="cops-item-sheet">
+
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" style="cursor: pointer;"/>
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Nom de l'objet"/></h1>
+        </div>
+    </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary" style="margin-bottom:10px; border-bottom:1px solid #555;">
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="details">Détails</a>
+        <a class="item" data-tab="effects">Effets</a>
+    </nav>
+
+    <div class="sheet-content sheet-body">
+        
+        <div class="tab {{#if (eq tabs.primary 'description')}}active{{/if}}" data-group="primary" data-tab="description">
+             <div class="form-group" style="margin-top: 10px;">
+                <label>Description / Notes</label>
+                <div class="editor" style="min-height: 250px; border:1px solid #777; border-radius:4px; padding:5px;">
+                <prose-mirror
+                    name="system.description"
+                    value="{{system.description}}"
+                    editable="{{editable}}"
+                    toggled="true">
+                    {{{enrichedDescription}}}
+                </prose-mirror>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tab {{#if (eq tabs.primary 'details')}}active{{/if}}" data-group="primary" data-tab="details">
+
+            {{#if (or (eq item.type "competence") (eq item.type "skill"))}}
+            <div class="form-group">
+                <label>Niveau</label>
+                <div class="form-fields"><input type="number" name="system.niveau" value="{{system.niveau}}"/></div>
+            </div>
+
+            <div class="form-group">
+                <label>Autoriser Adrénaline</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="system.allowAdrenaline" {{checked system.allowAdrenaline}} />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Caractéristique liée</label>
+                <div class="form-fields">
+                    <select name="system.caracteristique">
+                        {{selectOptions config.caracteristiques selected=system.caracteristique localize=false}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Spécialisation</label>
+                <div class="form-fields"><input type="text" name="system.specialisation" value="{{system.specialisation}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Dé Bleu (Général)</label>
+                <div class="form-fields"><input type="checkbox" name="system.hasBlueBase" {{checked view.hasBlueBase}}/></div>
+            </div>
+
+            {{#if (gt (lookup view "specCount") 0)}}
+            <div class="form-group" style="flex-direction:column; align-items:flex-start;">
+                <label style="margin-bottom:6px;">Dé Bleu (Spécialisations)</label>
+                <div class="form-fields" style="display:block; width:100%;">
+                    {{#each system.specialisations}}
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin:2px 0;">
+                            <span>{{@key}}</span>
+                            <input type="checkbox" name="system.hasBlueSpecs.{{@key}}" {{checked (lookup ../view.hasBlueSpecs @key)}}/>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{/if}}
+            {{/if}}
+
+            {{#if (or (eq item.type "competence") (eq item.type "skill"))}}
+            <details class="cops-spec-config" style="margin-top:10px;">
+                <summary style="cursor:pointer; user-select:none;">
+                    Spécialisations (config)
+                </summary>
+
+                <div style="margin-top:10px;">
+                    <div class="form-group">
+                    <label>Palier de spécialisation</label>
+                    <div class="form-fields">
+                        <input type="number" name="system.specialisationAt" value="{{system.specialisationAt}}" min="0" max="9"/>
+                    </div>
+                    <p class="hint" style="margin:5px 0 0 0; opacity:0.8;">
+                        0 = aucune spécialisation ; 9 = “9+” (spécialisation obligatoire à l’acquisition)
+                    </p>
+                    </div>
+
+                    <div class="form-group">
+                    <label>Mode</label>
+                    <div class="form-fields">
+                        <select name="system.specialisationMode">
+                        <option value="fixed" {{#if (eq system.specialisationMode "fixed")}}selected{{/if}}>fixed (liste)</option>
+                        <option value="free"  {{#if (eq system.specialisationMode "free")}}selected{{/if}}>free (texte libre)</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label>Options (si mode=fixed)</label>
+                    <div class="form-fields">
+                        <textarea name="specialisationOptionsText" rows="3"
+                        style="width:100%; resize:vertical;">{{specialisationOptionsText}}</textarea>
+                    </div>
+                    <p class="hint" style="margin:5px 0 0 0; opacity:0.8;">
+                        Sépare par des virgules. Exemple : Voiture, Moto, Camion
+                    </p>
+                    </div>
+                </div>
+            </details>
+            {{/if}}
+
+
+            {{#if (or (eq item.type "arme") (eq item.type "weapon"))}}
+
+                <div class="form-group" style="border-top:1px dashed #555; padding-top:5px; margin-top:5px;">
+                <label style="color:#ffcc00;">Rafale</label>
+                <div class="form-fields">
+                    <label class="checkbox">
+                    <input type="checkbox" name="system.useWeaponSkillForBurst" {{checked system.useWeaponSkillForBurst}}/>
+                    La rafale utilise la compétence de l’arme
+                    </label>
+                </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Compétence de Tir</label>
+                    <div class="form-fields">
+                        <select name="system.competence">
+                        {{selectOptions config.combatSkills selected=system.competence localize=false}}
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label>Caractéristique (dés)</label>
+                    <div class="form-fields">
+                        <select name="system.caracteristique">
+                        {{selectOptions config.caracteristiques selected=system.caracteristique localize=false}}
+                        </select>
+                    </div>
+                </div>
+
+
+            {{#if weaponHasSpecs}}
+                <div class="form-group">
+                    <label>Spécialisation (tir)</label>
+                    <div class="form-fields">
+                    <select name="system.competenceSpec">
+                        {{#each weaponSpecOptions as |opt|}}
+                        <option value="{{opt}}" {{#if (eq ../system.competenceSpec opt)}}selected{{/if}}>
+                            {{#if (eq opt "base")}}Général{{else}}{{opt}}{{/if}}
+                        </option>
+                        {{/each}}
+                    </select>
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#if rafaleHasSpecs}}
+                <div class="form-group">
+                    <label>Spécialisation (rafale)</label>
+                    <div class="form-fields">
+                    <select name="system.rafaleSpec">
+                        {{#each rafaleSpecOptions as |opt|}}
+                        <option value="{{opt}}" {{#if (eq ../system.rafaleSpec opt)}}selected{{/if}}>
+                            {{#if (eq opt "base")}}Général{{else}}{{opt}}{{/if}}
+                        </option>
+                        {{/each}}
+                    </select>
+                    </div>
+                </div>
+            {{/if}}
+ 
+
+            <div class="form-group">
+                <label>Précision (PR)</label>
+                <div class="form-fields"><input type="number" name="system.precision" value="{{system.precision}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Facteur d'Arrêt (FA)</label>
+                <div class="form-fields"><input type="number" name="system.facteurArret" value="{{system.facteurArret}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Puissance (Dégâts)</label>
+                <div class="form-fields"><input type="text" name="system.puissance" value="{{system.puissance}}" placeholder="ex: 2d6"/></div>
+            </div>
+            <div class="form-group">
+                <label>Portée</label>
+                <div class="form-fields"><input type="text" name="system.portee" value="{{system.portee}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Valeur Couverture (VC)</label>
+                <div class="form-fields"><input type="number" name="system.valeurCouverture" value="{{system.valeurCouverture}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Rafale Courte (VRC)</label>
+                <div class="form-fields"><input type="number" name="system.rafaleCourte" value="{{system.rafaleCourte}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Cadence de Tir (CT)</label>
+                <div class="form-fields"><input type="number" name="system.cadenceTir" value="{{system.cadenceTir}}"/></div>
+            </div>
+            
+            <div class="form-group" style="border-top:1px dashed #555; padding-top:5px; margin-top:5px;">
+                <label style="color:#00ccff;">Type de Munition (Lien Inventaire)</label>
+                <div class="form-fields">
+                    <input type="text" name="system.ammoType" value="{{system.ammoType}}" placeholder="ex: 9mm, Calibre 12..."/>
+                </div>
+                <p style="font-size:0.8em; color:#aaa; margin:0;">Doit correspondre au <strong>Nom</strong> d'un objet "Matériel" dans l'inventaire.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Munitions (Actuel / Max)</label>
+                <div class="form-fields">
+                    <input type="number" name="system.munitions.value" value="{{system.munitions.value}}"/> / 
+                    <input type="number" name="system.munitions.max" value="{{system.munitions.max}}"/>
+                </div>
+            </div>
+            
+            <div class="form-group" style="border-top:1px solid #777; padding-top:5px; margin-top:5px;">
+                <label style="color:#ffcc00;">Arme Spéciale</label>
+                <div class="form-fields">
+                    <label class="checkbox">
+                        <input type="checkbox" name="system.isSpecial" {{checked system.isSpecial}}/>
+                        Relancer les "1" aux dégâts
+                    </label>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if (or (eq item.type "protection") (eq item.type "armor"))}}
+            <div class="form-group">
+                <label>Formule Absorption</label>
+                <div class="form-fields"><input type="text" name="system.formule" value="{{system.formule}}" placeholder="ex: 1d6"/></div>
+            </div>
+            <div class="form-group">
+                <label>Zones Protégées</label>
+                <div class="form-fields" style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <label><input type="checkbox" name="system.zones.tete" {{checked system.zones.tete}}/> Tête</label>
+                    <label><input type="checkbox" name="system.zones.torse" {{checked system.zones.torse}}/> Torse</label>
+                    <label><input type="checkbox" name="system.zones.bras" {{checked system.zones.bras}}/> Bras</label>
+                    <label><input type="checkbox" name="system.zones.abdomen" {{checked system.zones.abdomen}}/> Abdomen</label>
+                    <label><input type="checkbox" name="system.zones.jambes" {{checked system.zones.jambes}}/> Jambes</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Équipée ?</label>
+                <div class="form-fields"><input type="checkbox" name="system.equipe" {{checked system.equipe}}/></div>
+            </div>
+            {{/if}}
+
+            {{#if (or (eq item.type "materiel") (eq item.type "gear"))}}
+            <div class="form-group">
+                <label>Quantité</label>
+                <div class="form-fields"><input type="number" name="system.quantite" value="{{system.quantite}}"/></div>
+            </div>
+            <div class="form-group">
+                <label>Poids / Encombrement</label>
+                <div class="form-fields"><input type="number" name="system.poids" value="{{system.poids}}"/></div>
+            </div>
+            {{/if}}
+
+            {{#if (eq item.type "contact")}}
+            <div class="form-group">
+                <label>Nature de la relation</label>
+                <div class="form-fields">
+                    <select name="system.type">
+                        {{selectOptions config.contactTypes selected=system.type localize=false}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Domaine / Rôle</label>
+                <div class="form-fields">
+                    <input type="text" name="system.domaine" value="{{system.domaine}}" placeholder="ex: Journaliste, Dealer, Avocat..."/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Niveau d'implication (1-4)</label>
+                <div class="form-fields" style="display:flex; gap:15px; align-items:center;">
+                    <label><input type="radio" name="system.niveau" value="1" {{checked (eq system.niveau 1)}}> 1 (Faible)</label>
+                    <label><input type="radio" name="system.niveau" value="2" {{checked (eq system.niveau 2)}}> 2 (Moyen)</label>
+                    <label><input type="radio" name="system.niveau" value="3" {{checked (eq system.niveau 3)}}> 3 (Fort)</label>
+                    <label><input type="radio" name="system.niveau" value="4" {{checked (eq system.niveau 4)}}> 4 (Total)</label>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if (eq item.type "stage")}}
+            <div class="form-group">
+                <label>Niveau du Stage</label>
+                <div class="form-fields" style="display:flex; gap:15px; align-items:center;">
+                    <label><input type="radio" name="system.niveau" value="1" {{checked (eq system.niveau 1)}}> Niveau 1</label>
+                    <label><input type="radio" name="system.niveau" value="2" {{checked (eq system.niveau 2)}}> Niveau 2</label>
+                    <label><input type="radio" name="system.niveau" value="3" {{checked (eq system.niveau 3)}}> Niveau 3</label>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:15px; border-top:1px solid #555; padding-top:10px;">
+                <label style="color:#ffcc00;">Capacité Active (Bouton)</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="system.hasAction" {{checked system.hasAction}}/>
+                    <span style="font-size:0.8em; color:#aaa; margin-left:5px;">Cochez pour afficher le bouton sur la fiche</span>
+                </div>
+            </div>
+
+            {{#if system.hasAction}}
+            <div class="form-group">
+                <label>Nom du Bouton</label>
+                <div class="form-fields">
+                    <input type="text" name="system.labelAction" value="{{system.labelAction}}" placeholder="Ex: Enchaînement"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Coût d'Activation</label>
+                <div class="form-fields" style="gap:10px;">
+                    <label>Adr: <input type="number" name="system.coutAdrenaline" value="{{system.coutAdrenaline}}" style="width:50px;"/></label>
+                    <label>Anc: <input type="number" name="system.coutAnciennete" value="{{system.coutAnciennete}}" style="width:50px;"/></label>
+                </div>
+            </div>
+
+            <div class="form-group" style="display:block; margin-top:10px;">
+                <label>Description de l'Effet (Chat)</label>
+                <div class="editor" style="min-height: 150px; border:1px solid #777; border-radius:4px; padding:5px; background:rgba(0,0,0,0.2);">
+                {{#if editable}}
+                    <prose-mirror
+                    name="system.descriptionAction"
+                    value="{{system.descriptionAction}}"
+                    editable="{{editable}}"
+                    toggled="true">
+                    {{{enrichedDescriptionAction}}}
+                    </prose-mirror>
+                {{else}}
+                    {{{enrichedDescriptionAction}}}
+                {{/if}}
+                </div>
+
+            </div>
+            {{/if}}
+            
+            <div class="form-group" style="margin-top:15px; border-top:1px solid #555; padding-top:10px;">
+                <p style="font-size:0.9em; font-style:italic; color:#aaa; text-align:center;">
+                    Pour les bonus passifs (Dés Bleus), utilisez l'onglet <strong>Effets</strong>.<br>
+                    Clé à modifier: <code>flags.cops.blueDie.NOM_TAG</code><br>
+                    (ex: <em>flags.cops.blueDie.tir</em>, <em>flags.cops.blueDie.combat</em>, etc.)
+                </p>
+            </div>
+            {{/if}}
+
+        </div>
+
+        <div class="tab {{#if (eq tabs.primary 'effects')}}active{{/if}}" data-group="primary" data-tab="effects">
+            <div style="background:rgba(255,255,255,0.1); padding:5px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; border-radius:4px;">
+                <span style="font-weight:bold;">EFFETS PASSIFS</span>
+                <a class="action-btn" data-action="createEffect" style="font-size:0.8em; padding:2px 8px; cursor:pointer; background:#444; border-radius:4px;"><i class="fas fa-plus"></i> Ajouter</a>
+            </div>
+
+            {{#each item.effects as |effect|}}
+            <div class="arsenal-row" style="background:rgba(0,0,0,0.3); padding:5px; margin-bottom:5px; border-radius:4px; display:flex; align-items:center;" data-effect-id="{{effect.id}}">
+                <img src="{{effect.img}}" width="24" height="24" style="border:1px solid #555; margin-right:8px;"/>
+                <div style="flex:1; font-weight:bold;">{{effect.name}}</div>
+                <div class="col-controls">
+                    <a class="icon-btn" data-action="editEffect"><i class="fas fa-edit"></i></a>
+                    <a class="icon-btn icon-del" data-action="deleteEffect"><i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+            {{/each}}
+            
+            {{#unless item.effects.length}}
+            <p style="text-align:center; color:#777; font-style:italic; margin-top:20px;">Aucun effet actif.</p>
+            {{/unless}}
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,746 @@
+/* COPS v3 — Industrial Surface System (Option B: + clair, + lisible)
+   Objectif: proche du rendu "Reference Module" sans modifier l'UX (pas de layout).
+*/
+:root{
+  --cops-ind-bg: url("../assets/ui/industrial/metal-bg-b.png");
+  --cops-ind-panel: url("../assets/ui/industrial/metal-panel-b.png");
+  --cops-ind-noise: url("../assets/ui/industrial/noise-fine.png");
+
+  --cops-ind-text: rgba(245,245,245,.92);
+  --cops-ind-muted: rgba(230,230,230,.65);
+
+  --cops-ind-amber: #d2a24a; /* ambre mat */
+  --cops-ind-amber-hi: #f0c36b;
+  --cops-ind-amber-dk: #9a6a1a;
+
+  --cops-ind-blue: #4aa3ff;
+  --cops-ind-blue-dim: rgba(74,163,255,.35);
+
+  --cops-ind-line: rgba(255,255,255,.08);
+  --cops-ind-line-2: rgba(0,0,0,.55);
+
+  --cops-ind-panel-bg: rgba(0,0,0,.22);
+  --cops-ind-panel-bg2: rgba(0,0,0,.14);
+}
+
+/* 1) Base background */
+.cops.sheet.actor.detective .window-content{
+  background:
+    radial-gradient(1200px 800px at 50% 10%, rgba(255,255,255,.06), rgba(0,0,0,0) 60%),
+    radial-gradient(1200px 900px at 50% 90%, rgba(0,0,0,.35), rgba(0,0,0,0) 60%),
+    var(--cops-ind-bg) center/cover no-repeat;
+  color: var(--cops-ind-text);
+}
+
+/* 2) Panels: apply texture + bevel (no size changes) */
+.cops.sheet.actor.detective .sheet-header,
+.cops.sheet.actor.detective .skill-card,
+.cops.sheet.actor.detective .arsenal-row,
+.cops.sheet.actor.detective .arsenal-header,
+.cops.sheet.actor.detective .tabs.primary,
+.cops.sheet.actor.detective .sheet-tabs,
+.cops.sheet.actor.detective .sheet-body{
+  position: relative;
+}
+
+/* Generic panel look on common blocks */
+.cops.sheet.actor.detective .sheet-header,
+.cops.sheet.actor.detective .sheet-tabs,
+.cops.sheet.actor.detective .sheet-body{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,0) 35%),
+    var(--cops-ind-panel) center/cover no-repeat;
+  border: 1px solid var(--cops-ind-line);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 8px 18px rgba(0,0,0,.35);
+}
+
+/* Skill cards / rows: same material, slightly flatter */
+.cops.sheet.actor.detective .skill-card,
+.cops.sheet.actor.detective .arsenal-row{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,0) 40%),
+    var(--cops-ind-noise) 0 0/512px 512px repeat,
+    rgba(0,0,0,.18);
+  border-color: rgba(255,255,255,.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.45);
+}
+
+/* 3) Tabs: remove cyan/glow, keep amber active */
+.cops.sheet.actor.detective .sheet-tabs .item.active,
+.cops.sheet.actor.detective .tabs.primary .item.active{
+  color: var(--cops-ind-text);
+  border-bottom-color: var(--cops-ind-amber) !important;
+  text-shadow: none !important;
+}
+.cops.sheet.actor.detective .sheet-tabs .item,
+.cops.sheet.actor.detective .tabs.primary .item{
+  color: var(--cops-ind-muted);
+}
+
+/* 4) Buttons: industrial amber (CSS bevel + noise) */
+.cops.sheet.actor.detective button,
+.cops.sheet.actor.detective .xp-btn,
+.cops.sheet.actor.detective .vital-btn,
+.cops.sheet.actor.detective .compendium-btn{
+  background:
+    linear-gradient(180deg, rgba(240,195,107,.95), rgba(154,106,26,.92)),
+    var(--cops-ind-noise) 0 0/512px 512px repeat;
+  border: 1px solid rgba(0,0,0,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -2px 0 rgba(0,0,0,.35),
+    0 2px 10px rgba(0,0,0,.35);
+  color: rgba(15,15,15,.92);
+  text-shadow: none;
+}
+.cops.sheet.actor.detective button:hover{
+  filter: brightness(1.03);
+}
+.cops.sheet.actor.detective button:active{
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.35),
+    0 1px 6px rgba(0,0,0,.35);
+}
+
+/* 5) Links and accents */
+.cops.sheet.actor.detective a,
+.cops.sheet.actor.detective .skill-name-link:hover{
+  color: var(--cops-ind-amber-hi) !important;
+}
+
+/* 6) Form fields: keep readable, slightly metallic */
+.cops.sheet.actor.detective input,
+.cops.sheet.actor.detective select,
+.cops.sheet.actor.detective textarea{
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(255,255,255,.08);
+  color: var(--cops-ind-text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.cops.sheet.actor.detective input:focus,
+.cops.sheet.actor.detective select:focus,
+.cops.sheet.actor.detective textarea:focus{
+  outline: 1px solid rgba(210,162,74,.45);
+  border-color: rgba(210,162,74,.35);
+}
+
+
+/* 7) Caractéristiques panel: harmonisation matière + bevel (UX inchangée) */
+.cops.sheet.actor.detective .cops-caracs-panel{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,0) 35%),
+    var(--cops-ind-panel) center/cover no-repeat !important;
+  border: 1px solid var(--cops-ind-line) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 8px 18px rgba(0,0,0,.30) !important;
+}
+
+/* 8) Dés bleus spécialisés: lisibles, sans réintroduire le look HUD partout */
+.cops.sheet.actor.detective i.blue-active{
+  color: var(--cops-ind-blue) !important;
+  filter: drop-shadow(0 0 2px rgba(74,163,255,.35));
+}
+.cops.sheet.actor.detective i.blue-inactive{
+  color: var(--cops-ind-blue-dim) !important;
+  opacity: .85;
+}
+
+
+
+
+/* --- v4: Dé bleu inactif = slot vide industriel --- */
+.cops.sheet.actor.detective i.blue-inactive,
+.cops.sheet.actor.detective .blue-inactive{
+  color: rgba(0,0,0,.78) !important;              /* noir/gris sombre */
+  opacity: 1 !important;
+  filter:
+    drop-shadow(0 1px 0 rgba(255,255,255,.10))    /* léger liseré clair */
+    drop-shadow(0 0 1px rgba(0,0,0,.85))          /* ancrage */
+    !important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.08),
+    0 -1px 0 rgba(0,0,0,.55);
+}
+
+/* Si SVG */
+.cops.sheet.actor.detective .blue-inactive svg{
+  fill: rgba(0,0,0,.78) !important;
+  filter:
+    drop-shadow(0 1px 0 rgba(255,255,255,.10))
+    drop-shadow(0 0 1px rgba(0,0,0,.85))
+    !important;
+}
+
+
+/* ===============================
+   Phase 2 — cadres & relief (mode 1: discret mais crédible)
+   Objectif: se rapprocher du rendu "Reference Module" via structure (frames) + profondeur.
+   Zéro impact UX: pas de padding/margin/size/layout modifiés.
+================================= */
+
+/* Légère vignette + assombrissement global (très subtil) */
+.cops.sheet.actor.detective .window-content{
+  background:
+    radial-gradient(1400px 900px at 50% 15%, rgba(255,255,255,.05), rgba(0,0,0,0) 62%),
+    radial-gradient(1400px 1000px at 50% 95%, rgba(0,0,0,.42), rgba(0,0,0,0) 62%),
+    var(--cops-ind-bg) center/cover no-repeat;
+}
+
+/* Cadre "module" : bord externe + bord interne + highlight haut + ombre basse */
+.cops.sheet.actor.detective .sheet-header,
+.cops.sheet.actor.detective .sheet-tabs,
+.cops.sheet.actor.detective .sheet-body,
+.cops.sheet.actor.detective .cops-caracs-panel{
+  border: 1px solid rgba(0,0,0,.65) !important; /* cadre externe */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),        /* highlight haut */
+    inset 0 -1px 0 rgba(0,0,0,.55),             /* ombre bas */
+    0 10px 20px rgba(0,0,0,.30)                 /* profondeur */
+    !important;
+}
+
+/* Bord interne fin (sans changer le layout) */
+.cops.sheet.actor.detective .sheet-header::before,
+.cops.sheet.actor.detective .sheet-tabs::before,
+.cops.sheet.actor.detective .sheet-body::before,
+.cops.sheet.actor.detective .cops-caracs-panel::before{
+  content: "" !important;
+  position: absolute !important;
+  inset: 1px !important;
+  border: 1px solid rgba(255,255,255,.07) !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+}
+
+/* Petite "strip" métal en haut des panels (comme sur la ref), très discrète */
+.cops.sheet.actor.detective .sheet-header,
+.cops.sheet.actor.detective .sheet-tabs,
+.cops.sheet.actor.detective .sheet-body,
+.cops.sheet.actor.detective .cops-caracs-panel{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,0) 22%),
+    linear-gradient(0deg, rgba(0,0,0,.22), rgba(0,0,0,0) 35%),
+    var(--cops-ind-panel) center/cover no-repeat !important;
+}
+
+/* Lignes compétences: plus "encastrées" (niveau sous-panel), sans toucher aux hauteurs */
+.cops.sheet.actor.detective .skill-card,
+.cops.sheet.actor.detective .arsenal-row{
+  border: 1px solid rgba(0,0,0,.55) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(0,0,0,.55)
+    !important;
+}
+
+/* Séparateurs subtils type "module" */
+.cops.sheet.actor.detective hr,
+.cops.sheet.actor.detective .separator,
+.cops.sheet.actor.detective .divider{
+  border-color: rgba(255,255,255,.06) !important;
+}
+
+
+/* ===============================
+   Phase 2.5 — Module Frame (global wrapper)
+   Objectif: donner la sensation "boîtier" du Reference Module sans toucher au layout interne.
+================================= */
+
+.cops.sheet.actor.detective .cops-module-frame{
+  position: relative;
+  padding: 14px; /* marge cadre (ne change pas l'UX interne) */
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(255,255,255,.05), rgba(0,0,0,0) 70%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,0) 35%),
+    var(--cops-ind-bg) center/cover no-repeat;
+  border: 1px solid rgba(0,0,0,.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.65),
+    0 18px 34px rgba(0,0,0,.38);
+  border-radius: 10px;
+}
+
+/* cadre interne fin */
+.cops.sheet.actor.detective .cops-module-frame::before{
+  content:"";
+  position:absolute;
+  inset: 6px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+  pointer-events:none;
+}
+
+/* coins subtils (sans images, resize-safe) */
+.cops.sheet.actor.detective .cops-module-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 10px;
+  pointer-events:none;
+  background:
+    radial-gradient(12px 12px at 10px 10px, rgba(210,162,74,.30), rgba(0,0,0,0) 70%),
+    radial-gradient(12px 12px at calc(100% - 10px) 10px, rgba(210,162,74,.26), rgba(0,0,0,0) 70%),
+    radial-gradient(12px 12px at 10px calc(100% - 10px), rgba(210,162,74,.18), rgba(0,0,0,0) 70%),
+    radial-gradient(12px 12px at calc(100% - 10px) calc(100% - 10px), rgba(210,162,74,.18), rgba(0,0,0,0) 70%);
+}
+
+/* inner surface keeps existing panels, just ensure it sits cleanly */
+.cops.sheet.actor.detective .cops-module-inner{
+  position: relative;
+}
+
+/* Les panneaux internes (header/body/tabs) gardent leur look, mais on enlève le "collage" aux bords */
+.cops.sheet.actor.detective .cops-module-inner .sheet-header,
+.cops.sheet.actor.detective .cops-module-inner .sheet-tabs,
+.cops.sheet.actor.detective .cops-module-inner .sheet-body{
+  border-radius: 8px;
+}
+
+/* légère séparation module entre header et caracs (strip ambre) */
+.cops.sheet.actor.detective .cops-module-inner .sheet-header{
+  margin-bottom: 10px;
+}
+.cops.sheet.actor.detective .cops-module-inner .sheet-header::after{
+  content:"";
+  position:absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -6px;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(210,162,74,.0), rgba(210,162,74,.45), rgba(210,162,74,.0));
+  opacity: .85;
+  pointer-events:none;
+}
+
+
+/* ===============================
+   Phase B — refactor surface system (B = plus lisible)
+   Objectif: se rapprocher fortement de "Reference Module (2)"
+   en imposant une vraie hiérarchie: Frame -> Modules -> Insets.
+   Zéro layout/UX: on ne modifie pas grids/hauteurs/scrolls.
+================================= */
+
+:root{
+  --cops-mod-frame-outer: rgba(0,0,0,.78);
+  --cops-mod-frame-inner: rgba(255,255,255,.08);
+  --cops-mod-frame-amber: rgba(210,162,74,.38);
+
+  --cops-mod-module-outer: rgba(0,0,0,.72);
+  --cops-mod-module-inner: rgba(255,255,255,.07);
+  --cops-mod-module-fill: rgba(0,0,0,.18);
+
+  --cops-mod-inset-outer: rgba(0,0,0,.62);
+  --cops-mod-inset-inner: rgba(255,255,255,.06);
+  --cops-mod-inset-fill: rgba(0,0,0,.22);
+}
+
+/* FRAME (boîtier global) */
+.cops.sheet.actor.detective .cops-module-frame{
+  position: relative;
+  padding: 14px;
+  border-radius: 12px;
+  background:
+    radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,.06), rgba(0,0,0,0) 70%),
+    radial-gradient(900px 700px at 50% 100%, rgba(0,0,0,.55), rgba(0,0,0,0) 70%),
+    var(--cops-ind-bg) center/cover no-repeat;
+  border: 2px solid var(--cops-mod-frame-outer);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -2px 0 rgba(0,0,0,.68),
+    0 20px 38px rgba(0,0,0,.40);
+}
+.cops.sheet.actor.detective .cops-module-frame::before{
+  content:"";
+  position:absolute;
+  inset: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--cops-mod-frame-inner);
+  pointer-events:none;
+}
+/* coins ambre (très subtils) */
+.cops.sheet.actor.detective .cops-module-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 12px;
+  pointer-events:none;
+  background:
+    radial-gradient(14px 14px at 12px 12px, var(--cops-mod-frame-amber), rgba(0,0,0,0) 70%),
+    radial-gradient(14px 14px at calc(100% - 12px) 12px, rgba(210,162,74,.26), rgba(0,0,0,0) 70%),
+    radial-gradient(14px 14px at 12px calc(100% - 12px), rgba(210,162,74,.18), rgba(0,0,0,0) 70%),
+    radial-gradient(14px 14px at calc(100% - 12px) calc(100% - 12px), rgba(210,162,74,.18), rgba(0,0,0,0) 70%);
+}
+
+/* MODULE blocks (header / caracs / tabs / body) */
+.cops.sheet.actor.detective .cops-module-inner header.sheet-header,
+.cops.sheet.actor.detective .cops-module-inner section.cops-caracs-panel,
+.cops.sheet.actor.detective .cops-module-inner nav.sheet-tabs,
+.cops.sheet.actor.detective .cops-module-inner section.sheet-body{
+  position: relative;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,0) 24%),
+    linear-gradient(0deg, rgba(0,0,0,.32), rgba(0,0,0,0) 38%),
+    var(--cops-ind-panel) center/cover no-repeat;
+  border: 2px solid var(--cops-mod-module-outer) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.62),
+    0 10px 18px rgba(0,0,0,.28)
+    !important;
+}
+
+/* internal frame */
+.cops.sheet.actor.detective .cops-module-inner header.sheet-header::before,
+.cops.sheet.actor.detective .cops-module-inner section.cops-caracs-panel::before,
+.cops.sheet.actor.detective .cops-module-inner nav.sheet-tabs::before,
+.cops.sheet.actor.detective .cops-module-inner section.sheet-body::before{
+  content:"";
+  position:absolute;
+  inset: 2px;
+  border-radius: 8px;
+  border: 1px solid var(--cops-mod-module-inner);
+  pointer-events:none;
+}
+
+/* strip métallique haute (structure) */
+.cops.sheet.actor.detective .cops-module-inner header.sheet-header::after,
+.cops.sheet.actor.detective .cops-module-inner section.cops-caracs-panel::after,
+.cops.sheet.actor.detective .cops-module-inner nav.sheet-tabs::after,
+.cops.sheet.actor.detective .cops-module-inner section.sheet-body::after{
+  content:"";
+  position:absolute;
+  left: 10px;
+  right: 10px;
+  top: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(210,162,74,0), rgba(210,162,74,.40), rgba(210,162,74,0));
+  opacity: .75;
+  pointer-events:none;
+}
+
+/* INSET elements (skill rows / arsenal rows) */
+.cops.sheet.actor.detective .skill-card,
+.cops.sheet.actor.detective .arsenal-row{
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,0) 40%),
+    var(--cops-ind-noise) 0 0/512px 512px repeat,
+    rgba(0,0,0,.20);
+  border: 2px solid var(--cops-mod-inset-outer) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.62)
+    !important;
+}
+
+/* Tabs: plus "module", moins bulle */
+.cops.sheet.actor.detective .sheet-tabs .item{
+  text-shadow: none !important;
+}
+.cops.sheet.actor.detective .sheet-tabs .item.active{
+  border-bottom-color: var(--cops-ind-amber) !important;
+}
+
+/* Légère séparation visuelle entre modules (sans bouger la structure interne) */
+.cops.sheet.actor.detective header.sheet-header{ margin-bottom: 14px !important; }
+.cops.sheet.actor.detective section.cops-caracs-panel{ margin-bottom: 14px !important; }
+.cops.sheet.actor.detective nav.sheet-tabs{ margin-bottom: 12px !important; }
+
+
+/* --- v10: fix height chain for scrollbars (wrapper introduced in v7) ---
+   Problème: .sheet-content a height:100% mais son parent wrapper n'avait pas de height,
+   donc la zone scroll s'étendait et plus d'ascenseur.
+   Fix: donner height:100% + flex column + min-height:0 aux wrappers.
+*/
+.cops.sheet.actor.detective .cops-module-frame,
+.cops.sheet.actor.detective .cops-module-inner{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* assurer que les zones flex peuvent rétrécir (sinon pas d'overflow => pas de scrollbar) */
+.cops.sheet.actor.detective .sheet-content{
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.cops.sheet.actor.detective .sheet-body{
+  min-height: 0;
+}
+
+
+
+
+/* --- v12: clean premium surface (simplification radicale) ---
+   On supprime les traits multiples et on travaille par volume.
+*/
+
+/* Modules principaux : volume sans double cadres */
+.cops.sheet.actor.detective header.sheet-header,
+.cops.sheet.actor.detective section.cops-caracs-panel,
+.cops.sheet.actor.detective nav.sheet-tabs,
+.cops.sheet.actor.detective section.sheet-body{
+  border: none !important;
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.15)),
+    var(--cops-ind-panel) center/cover no-repeat;
+}
+
+/* Suppression cadres internes */
+.cops.sheet.actor.detective header.sheet-header::before,
+.cops.sheet.actor.detective section.cops-caracs-panel::before,
+.cops.sheet.actor.detective nav.sheet-tabs::before,
+.cops.sheet.actor.detective section.sheet-body::before,
+.cops.sheet.actor.detective header.sheet-header::after,
+.cops.sheet.actor.detective section.cops-caracs-panel::after,
+.cops.sheet.actor.detective nav.sheet-tabs::after,
+.cops.sheet.actor.detective section.sheet-body::after{
+  content: none !important;
+}
+
+/* Séparation par contraste (pas par ligne) */
+.cops.sheet.actor.detective header.sheet-header{
+  margin-bottom: 18px !important;
+}
+.cops.sheet.actor.detective section.cops-caracs-panel{
+  margin-bottom: 18px !important;
+}
+.cops.sheet.actor.detective nav.sheet-tabs{
+  margin-bottom: 16px !important;
+}
+
+/* Tabs plus intégrées, moins bulles */
+.cops.sheet.actor.detective .sheet-tabs .item{
+  border: none !important;
+  background: rgba(0,0,0,.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.cops.sheet.actor.detective .sheet-tabs .item.active{
+  background: rgba(0,0,0,.28) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 0 0 1px rgba(210,162,74,.18) inset;
+}
+
+/* Lignes compétences plus "inset volume" sans bord noir dur */
+.cops.sheet.actor.detective .skill-card,
+.cops.sheet.actor.detective .arsenal-row{
+  border: none !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,.55),
+    0 6px 10px rgba(0,0,0,.25);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25)),
+    var(--cops-ind-noise) 0 0/512px 512px repeat,
+    rgba(0,0,0,.22);
+}
+
+
+/* =========================================================
+   v16: brushed industrial surface system (no grain/no noise)
+   Base: industrial-surfaceB-v12
+   Goals:
+   - 0 UX/layout change
+   - Brushed metal (horizontal), subtle vignette, clear hierarchy
+   - Tabs as real metal buttons (active amber)
+   - "Nuit de Repos" visible: dark metal + amber text
+   ========================================================= */
+
+:root{
+  --cops16-bg0: #171a1e;
+  --cops16-bg1: #1f242a;
+  --cops16-panel0: #2a3037;
+  --cops16-panel1: #23282e;
+  --cops16-edge: rgba(0,0,0,.70);
+  --cops16-hi: rgba(255,255,255,.06);
+  --cops16-shadow: rgba(0,0,0,.55);
+
+  --cops16-amber: #d6a84f;
+  --cops16-amber2: #b8852a;
+  --cops16-amberText: #f2cf7a;
+
+  --cops16-brushA: rgba(255,255,255,.020);
+  --cops16-brushB: rgba(0,0,0,.025);
+}
+
+/* ---------- GLOBAL BACKGROUND (sheet) ---------- */
+.cops.sheet.actor.detective{
+  background:
+    /* brushed horizontal micro-lines */
+    repeating-linear-gradient(0deg,
+      var(--cops16-brushA) 0px,
+      var(--cops16-brushA) 1px,
+      var(--cops16-brushB) 1px,
+      var(--cops16-brushB) 3px
+    ),
+    /* soft vignette */
+    radial-gradient(ellipse at center,
+      rgba(255,255,255,.04) 0%,
+      rgba(0,0,0,.55) 78%,
+      rgba(0,0,0,.70) 100%
+    ),
+    linear-gradient(180deg, var(--cops16-bg1) 0%, var(--cops16-bg0) 100%);
+  background-blend-mode: overlay, normal, normal;
+}
+
+/* ---------- MAIN MODULE PANELS (header / caracs / tabs / body) ---------- */
+.cops.sheet.actor.detective header.sheet-header,
+.cops.sheet.actor.detective section.cops-caracs-panel,
+.cops.sheet.actor.detective nav.sheet-tabs,
+.cops.sheet.actor.detective section.sheet-body{
+  border: 1px solid var(--cops16-edge) !important;
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 1px,
+      rgba(0,0,0,.020) 1px,
+      rgba(0,0,0,.020) 4px
+    ),
+    linear-gradient(180deg, var(--cops16-panel0) 0%, var(--cops16-panel1) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--cops16-hi),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 14px 26px rgba(0,0,0,.38);
+}
+
+/* Slight hierarchy: body a touch darker */
+.cops.sheet.actor.detective section.sheet-body{
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.014) 0px,
+      rgba(255,255,255,.014) 1px,
+      rgba(0,0,0,.020) 1px,
+      rgba(0,0,0,.020) 4px
+    ),
+    linear-gradient(180deg, #262c33 0%, #1f242a 100%);
+}
+
+/* ---------- TABS AS METAL BUTTONS ---------- */
+.cops.sheet.actor.detective .sheet-tabs{
+  gap: 10px;
+}
+
+.cops.sheet.actor.detective .sheet-tabs .item{
+  border: 1px solid rgba(0,0,0,.70) !important;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.016) 0px,
+      rgba(255,255,255,.016) 1px,
+      rgba(0,0,0,.022) 1px,
+      rgba(0,0,0,.022) 4px
+    ),
+    linear-gradient(180deg, #2b3138 0%, #1f242a 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(0,0,0,.60),
+    0 8px 14px rgba(0,0,0,.28);
+  color: rgba(235,235,235,.85) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.55);
+}
+
+.cops.sheet.actor.detective .sheet-tabs .item:hover{
+  filter: brightness(1.06);
+}
+
+.cops.sheet.actor.detective .sheet-tabs .item.active{
+  border-color: rgba(214,168,79,.45) !important;
+  color: var(--cops16-amberText) !important;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.014) 0px,
+      rgba(255,255,255,.014) 1px,
+      rgba(0,0,0,.020) 1px,
+      rgba(0,0,0,.020) 4px
+    ),
+    linear-gradient(180deg, #3a3f45 0%, #1f242a 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.65),
+    0 0 0 1px rgba(214,168,79,.18),
+    0 10px 18px rgba(0,0,0,.35);
+}
+
+/* ---------- "NUIT DE REPOS" BUTTON (dark metal + amber text) ----------
+   We force it even if inline styles exist.
+*/
+.cops.sheet.actor.detective button.night-rest,
+.cops.sheet.actor.detective .night-rest,
+.cops.sheet.actor.detective [data-action="night-rest"],
+.cops.sheet.actor.detective .rest-button,
+.cops.sheet.actor.detective button:has(.fa-moon),
+.cops.sheet.actor.detective button:has(i.fa-moon){
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.010) 0px,
+      rgba(255,255,255,.010) 1px,
+      rgba(0,0,0,.018) 1px,
+      rgba(0,0,0,.018) 4px
+    ),
+    linear-gradient(180deg, #20252b 0%, #14181c 100%) !important;
+  border: 1px solid rgba(214,168,79,.50) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -1px 0 rgba(0,0,0,.65),
+    0 10px 18px rgba(0,0,0,.35);
+  color: var(--cops16-amberText) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.65);
+}
+
+.cops.sheet.actor.detective button.night-rest:hover,
+.cops.sheet.actor.detective .night-rest:hover,
+.cops.sheet.actor.detective [data-action="night-rest"]:hover,
+.cops.sheet.actor.detective .rest-button:hover,
+.cops.sheet.actor.detective button:hover:has(.fa-moon),
+.cops.sheet.actor.detective button:hover:has(i.fa-moon){
+  filter: brightness(1.08);
+}
+
+/* ---------- FOOTER PRIMARY BUTTONS (amber patina, not flashy) ---------- */
+.cops.sheet.actor.detective .sheet-body button,
+.cops.sheet.actor.detective .sheet-body .btn{
+  border: 1px solid rgba(0,0,0,.70) !important;
+}
+
+.cops.sheet.actor.detective .sheet-body .btn-primary,
+.cops.sheet.actor.detective .sheet-body button.primary,
+.cops.sheet.actor.detective .sheet-body button[data-action="learn-skill"],
+.cops.sheet.actor.detective .sheet-body button:has(.fa-plus),
+.cops.sheet.actor.detective .sheet-body button:has(i.fa-plus){
+  background:
+    linear-gradient(180deg, #d6a84f 0%, #b8852a 55%, #7a5618 100%) !important;
+  border: 1px solid rgba(0,0,0,.75) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 10px 18px rgba(0,0,0,.35);
+  color: #1b1206 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.22);
+}
+
+/* Small action icon buttons inside skill rows: keep amber but matte */
+.cops.sheet.actor.detective .skill-card .item-control,
+.cops.sheet.actor.detective .arsenal-row .item-control{
+  background: linear-gradient(180deg, rgba(214,168,79,.85), rgba(120,85,25,.85)) !important;
+  border: 1px solid rgba(0,0,0,.70) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -1px 0 rgba(0,0,0,.55);
+  color: #1b1206 !important;
+}
+
+/* Keep scrollbar unchanged: do not touch overflow rules. */

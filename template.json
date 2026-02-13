@@ -1,0 +1,88 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "character": {
+      "identite": {
+        "grade": "Détective",
+        "entreeCops": "",
+        "education": "",
+        "origineSociale": ""
+      },
+      "ressources": {
+        "pv": { "value": 10, "max": 10 },
+        "adrenaline": { "value": 0, "max": 5 },
+        "anciennete": { "value": 0, "max": 5 },
+        "xp": 0
+      },
+      "combat": {
+        "attitude": "normal"
+      },
+      "caracteristiques": {
+        "carrure": { "value": 2, "hasBlue": false },
+        "charme": { "value": 2, "hasBlue": false },
+        "coordination": { "value": 2, "hasBlue": false },
+        "education": { "value": 2, "hasBlue": false },
+        "perception": { "value": 2, "hasBlue": false },
+        "reflexes": { "value": 2, "hasBlue": false },
+        "sangFroid": { "value": 2, "hasBlue": false }
+      },
+      "biographie": "",
+      "notes": ""
+    },
+    "npc": {}
+  },
+  "Item": {
+    "types": ["skill", "stage", "contact", "arme", "protection", "materiel"],
+    "competence": {
+      "niveau": 9,
+      "caracteristique": "reflexes",
+      "hasBlue": false,
+      "stage": {
+      "niveau": 1,
+      "hasAction": false,
+      "labelAction": "Action Spéciale",
+      "descriptionAction": "",
+      "coutAdrenaline": 0,
+      "coutAnciennete": 0,
+      "description": ""
+    }
+
+    },
+    "skill": {
+      "niveau": 9,
+      "caracteristique": "reflexes",
+      "hasBlue": false
+    },
+    "arme": {
+      "competence": "Tir",
+      "precision": 0,
+      "puissance": "3d6",
+      "facteurArret": 2,
+      "rafaleCourte": "",
+      "portee": "",
+      "valeurCouverture": 0,
+      "cadenceTir": 0,
+      "munitions": { "value": 0, "max": 15 },
+      "isCops": false,
+      "hasBlue": false,
+      "description": ""
+    },
+    "protection": {
+      "formule": "1d6+1",
+      "equipe": false,
+      "zones": {
+        "tete": false,
+        "torse": false,
+        "abdomen": false,
+        "bras": false,
+        "jambes": false
+      },
+      "description": ""
+    },
+    "materiel": {
+      "quantite": 1,
+      "poids": 0,
+      "description": ""
+    }
+  }
+}

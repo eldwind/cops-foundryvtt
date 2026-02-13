@@ -1,0 +1,498 @@
+/* COPS v3 — UI Global (Chat + Wizard) — brushed industrial (B léger) */
+
+:root{
+  --cops-ui-bg0:#171a1e; --cops-ui-bg1:#1f242a;
+  --cops-ui-panel0:#2a3037; --cops-ui-panel1:#23282e;
+  --cops-ui-edge:rgba(0,0,0,.72); --cops-ui-hi:rgba(255,255,255,.06);
+  --cops-ui-amberText:#f2cf7a;
+  --cops-ui-text:rgba(240,240,240,.92); --cops-ui-muted:rgba(240,240,240,.62);
+  --cops-ui-brushA:rgba(255,255,255,.018); --cops-ui-brushB:rgba(0,0,0,.022);
+}
+
+/* Chat */
+.cops-chat-card,.cops-chat-message{color:var(--cops-ui-text);}
+.cops-chat-card{
+  border:1px solid var(--cops-ui-edge); border-radius:10px; overflow:hidden;
+  background:
+    repeating-linear-gradient(0deg,var(--cops-ui-brushA) 0,var(--cops-ui-brushA) 1px,var(--cops-ui-brushB) 1px,var(--cops-ui-brushB) 4px),
+    linear-gradient(180deg,var(--cops-ui-panel0),var(--cops-ui-panel1));
+  box-shadow: inset 0 1px 0 var(--cops-ui-hi), inset 0 -1px 0 rgba(0,0,0,.55), 0 10px 18px rgba(0,0,0,.35);
+}
+.cops-chat-title{
+  padding:6px 10px;
+  background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.22));
+  border-bottom:1px solid rgba(0,0,0,.55);
+  color:var(--cops-ui-amberText); font-weight:700; letter-spacing:.3px;
+  text-shadow:0 1px 0 rgba(0,0,0,.65);
+}
+.cops-chat-successes,.cops-chat-sl,.cops-chat-total,.cops-chat-result{
+  display:inline-block; padding:4px 8px; border-radius:8px;
+  border:1px solid rgba(0,0,0,.65);
+  background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.14));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+  font-weight:700;
+}
+.cops-chat-meta,.cops-chat-sub,.cops-chat-details{color:var(--cops-ui-muted);}
+.cops-chat-card button,.cops-chat-card .cops-apply-damage,.cops-chat-card .cops-impact-btn{
+  background:linear-gradient(180deg,#2b3138,#161a1e);
+  border:1px solid rgba(214,168,79,.45);
+  color:var(--cops-ui-amberText);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 -1px 0 rgba(0,0,0,.65);
+  text-shadow:0 1px 0 rgba(0,0,0,.65);
+}
+.cops-chat-card button:hover,.cops-chat-card .cops-apply-damage:hover,.cops-chat-card .cops-impact-btn:hover{filter:brightness(1.07);}
+
+/* Wizard */
+.cops-wizard{color:var(--cops-ui-text);}
+.cops-wizard .window-content,.cops-wizard.window-app .window-content{
+  background:
+    repeating-linear-gradient(0deg,var(--cops-ui-brushA) 0,var(--cops-ui-brushA) 1px,var(--cops-ui-brushB) 1px,var(--cops-ui-brushB) 4px),
+    radial-gradient(ellipse at center,rgba(255,255,255,.04) 0,rgba(0,0,0,.55) 78%,rgba(0,0,0,.70) 100%),
+    linear-gradient(180deg,var(--cops-ui-bg1),var(--cops-ui-bg0));
+  background-blend-mode:overlay,normal,normal;
+}
+.cops-wizard .sheet-tabs .item,.cops-wizard .tabs.primary .item{
+  border:1px solid rgba(0,0,0,.70)!important; border-radius:999px;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.016) 0,rgba(255,255,255,.016) 1px,rgba(0,0,0,.022) 1px,rgba(0,0,0,.022) 4px),
+    linear-gradient(180deg,#2b3138,#1f242a)!important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.60), 0 8px 14px rgba(0,0,0,.28);
+  color:rgba(235,235,235,.85)!important; text-shadow:0 1px 0 rgba(0,0,0,.55);
+}
+.cops-wizard .sheet-tabs .item.active,.cops-wizard .tabs.primary .item.active{
+  border-color:rgba(214,168,79,.45)!important; color:var(--cops-ui-amberText)!important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(0,0,0,.65), 0 0 0 1px rgba(214,168,79,.18), 0 10px 18px rgba(0,0,0,.35);
+}
+.cops-wizard input,.cops-wizard select,.cops-wizard textarea{
+  background:rgba(0,0,0,.22); border:1px solid rgba(0,0,0,.65); color:var(--cops-ui-text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.cops-wizard input:focus,.cops-wizard select:focus,.cops-wizard textarea:focus{
+  outline:1px solid rgba(214,168,79,.35); border-color:rgba(214,168,79,.30);
+}
+.cops-wizard button{
+  background:linear-gradient(180deg,#2b3138,#161a1e);
+  border:1px solid rgba(214,168,79,.45);
+  color:var(--cops-ui-amberText);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 -1px 0 rgba(0,0,0,.65);
+  text-shadow:0 1px 0 rgba(0,0,0,.65);
+}
+.cops-wizard button:hover{filter:brightness(1.07);}
+
+
+
+/* Optional: make "Diff / Pool" feel like labels without changing markup */
+.cops-chat-meta{
+  text-transform: uppercase;
+}
+
+
+
+/* Success: keep GREEN but readable (not neon) */
+.cops-chat-outcome-success{
+  color: #57e07a;
+}
+/* Failure: keep it strong red (align with existing look) */
+.cops-chat-outcome-failure{
+  color: #d64545;
+}
+
+
+/* --- Chat: outcome labels + meta visibility (A5) --- */
+.cops-chat-card .cops-chat-outcome{
+  margin-top: 10px;
+  font-weight: 800;
+  letter-spacing: .35px;
+  text-transform: uppercase;
+  text-shadow: none;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+/* Success: GREEN readable, same spirit as ÉCHEC (plain label) */
+.cops-chat-card .cops-chat-outcome-success{
+  color: #36b45a !important; /* softer green */
+}
+/* Failure: optional class if used */
+.cops-chat-card .cops-chat-outcome-failure{
+  color: #d64545 !important;
+}
+
+/* Diff / Pool : make it readable but still secondary */
+.cops-chat-card .cops-chat-meta{
+  color: rgba(255,255,255,.82) !important;
+  opacity: 0.9 !important;
+  font-weight: 650;
+  letter-spacing: .4px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.65);
+  background: none !important;
+  border: none !important;
+}
+
+
+/* --- Chat title size reduction (A7) --- */
+.chat-message .cops-chat-card h3.cops-chat-title{
+  font-size: 1.35rem !important;
+  line-height: 1.12;
+  letter-spacing: .2px;
+}
+
+    
+/* =========================================================
+   ItemSheet (COPS) harmonisation — brushed industrial
+   Targets: templates/item-sheet.html (.cops-item-sheet)
+   Purely visual (no layout/UX changes)
+   ========================================================= */
+
+.cops-item-sheet{
+  color: var(--cops-ui-text);
+}
+
+/* Header panel */
+.cops-item-sheet > header.sheet-header{
+  border: 1px solid var(--cops-ui-edge) !important;
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(0deg,
+      var(--cops-ui-brushA) 0px,
+      var(--cops-ui-brushA) 1px,
+      var(--cops-ui-brushB) 1px,
+      var(--cops-ui-brushB) 4px
+    ),
+    linear-gradient(180deg, var(--cops-ui-panel0) 0%, var(--cops-ui-panel1) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--cops-ui-hi),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 10px 18px rgba(0,0,0,.32);
+  padding: 10px;
+  gap: 12px;
+}
+
+.cops-item-sheet .profile-img{
+  border: 1px solid rgba(0,0,0,.65);
+  border-radius: 10px;
+  box-shadow: 0 8px 14px rgba(0,0,0,.35);
+}
+
+/* Name field */
+.cops-item-sheet .charname input{
+  background: rgba(0,0,0,.18) !important;
+  border: 1px solid rgba(0,0,0,.65) !important;
+  color: var(--cops-ui-text) !important;
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Tabs as metal buttons (override inline border-bottom) */
+.cops-item-sheet nav.sheet-tabs{
+  margin: 12px 0 10px 0 !important;
+  border-bottom: none !important;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cops-item-sheet nav.sheet-tabs .item{
+  border: 1px solid rgba(0,0,0,.70) !important;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.016) 0px,
+      rgba(255,255,255,.016) 1px,
+      rgba(0,0,0,.022) 1px,
+      rgba(0,0,0,.022) 4px
+    ),
+    linear-gradient(180deg, #2b3138 0%, #1f242a 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(0,0,0,.60),
+    0 8px 14px rgba(0,0,0,.24);
+  color: rgba(235,235,235,.85) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.55);
+}
+
+.cops-item-sheet nav.sheet-tabs .item:hover{ filter: brightness(1.06); }
+
+.cops-item-sheet nav.sheet-tabs .item.active{
+  border-color: rgba(214,168,79,.45) !important;
+  color: var(--cops-ui-amberText) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.65),
+    0 0 0 1px rgba(214,168,79,.16),
+    0 10px 18px rgba(0,0,0,.30);
+}
+
+/* Body panel */
+.cops-item-sheet .sheet-content.sheet-body{
+  border: 1px solid var(--cops-ui-edge) !important;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--cops-ui-panel0) 0%, var(--cops-ui-panel1) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--cops-ui-hi),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 10px 18px rgba(0,0,0,.26);
+  padding: 10px;
+}
+
+/* Form groups */
+.cops-item-sheet .form-group > label{
+  color: rgba(240,240,240,.86);
+  text-shadow: 0 1px 0 rgba(0,0,0,.65);
+}
+
+.cops-item-sheet .form-fields input,
+.cops-item-sheet .form-fields select,
+.cops-item-sheet textarea{
+  background: rgba(0,0,0,.20) !important;
+  border: 1px solid rgba(0,0,0,.65) !important;
+  color: var(--cops-ui-text) !important;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Editor: override inline border/radius */
+.cops-item-sheet .editor{
+  border: 1px solid rgba(0,0,0,.65) !important;
+  border-radius: 10px !important;
+  background: rgba(0,0,0,.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.cops-item-sheet .editor .prosemirror,
+.cops-item-sheet prose-mirror{
+  color: var(--cops-ui-text);
+}
+
+/* Details blocks */
+.cops-item-sheet details.cops-spec-config{
+  border: 1px solid rgba(0,0,0,.65);
+  border-radius: 10px;
+  background: rgba(0,0,0,.12);
+  padding: 8px 10px;
+}
+.cops-item-sheet details.cops-spec-config > summary{
+  color: var(--cops-ui-amberText);
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+.cops-item-sheet .hint{
+  color: rgba(240,240,240,.65);
+}
+
+    
+/* =========================================================
+   Wizard (COPS) premium skin v2 — closer to PJ surface system
+   Target: .cops-wizard (DialogV2 content)
+   Purely visual (no layout/UX changes)
+   ========================================================= */
+
+/* Dialog chrome */
+.cops-wizard.window-app{
+  border: 1px solid rgba(0,0,0,.75);
+  border-radius: 12px;
+  box-shadow: 0 18px 32px rgba(0,0,0,.55);
+  overflow: hidden;
+}
+.cops-wizard .window-header{
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 1px,
+      rgba(0,0,0,.022) 1px,
+      rgba(0,0,0,.022) 4px
+    ),
+    linear-gradient(180deg, #2b3138 0%, #1b1f24 100%);
+  border-bottom: 1px solid rgba(0,0,0,.65);
+  color: rgba(245,245,245,.92);
+  text-shadow: 0 1px 0 rgba(0,0,0,.75);
+}
+
+/* Inner panels (common blocks inside wizard) */
+.cops-wizard .wizard-panel,
+.cops-wizard .wizard-step,
+.cops-wizard .sheet-header,
+.cops-wizard .sheet-body{
+  border: 1px solid rgba(0,0,0,.70);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(42,48,55,.92) 0%, rgba(35,40,46,.92) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.55);
+}
+
+/* Tables/lists */
+.cops-wizard table,
+.cops-wizard .list,
+.cops-wizard .cops-list{
+  border-color: rgba(0,0,0,.55);
+}
+.cops-wizard th{
+  color: rgba(242,207,122,.95);
+  text-shadow: 0 1px 0 rgba(0,0,0,.75);
+}
+.cops-wizard td{
+  color: rgba(240,240,240,.86);
+}
+
+/* Inputs more integrated */
+.cops-wizard input,
+.cops-wizard select,
+.cops-wizard textarea{
+  background: rgba(0,0,0,.26) !important;
+  border: 1px solid rgba(0,0,0,.70) !important;
+  border-radius: 8px;
+  color: rgba(240,240,240,.92) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.cops-wizard input::placeholder,
+.cops-wizard textarea::placeholder{
+  color: rgba(240,240,240,.40);
+}
+
+/* Primary actions (Next/Validate etc.) */
+.cops-wizard button.primary,
+.cops-wizard button[data-action="next"],
+.cops-wizard button[data-action="validate"]{
+  background: linear-gradient(180deg, #d6a84f 0%, #b8852a 55%, #7a5618 100%) !important;
+  border: 1px solid rgba(0,0,0,.75) !important;
+  color: #1b1206 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.55), 0 10px 18px rgba(0,0,0,.35);
+}
+.cops-wizard button.primary:hover,
+.cops-wizard button[data-action="next"]:hover,
+.cops-wizard button[data-action="validate"]:hover{
+  filter: brightness(1.06);
+}
+
+/* Secondary actions */
+.cops-wizard button,
+.cops-wizard .button{
+  background: linear-gradient(180deg, #2b3138 0%, #161a1e 100%) !important;
+  border: 1px solid rgba(214,168,79,.35) !important;
+  color: rgba(242,207,122,.92) !important;
+}
+
+
+/* =========================================================
+   Wizard fixes v4
+   - Dropdown options: avoid "light text on light menu" (eye-searing)
+   - Step 1 caracs: restore green highlight on +/- buttons (softer)
+   ========================================================= */
+
+/* Dropdown: keep closed select dark, but options list readable */
+.cops-wizard select{
+  background: rgba(0,0,0,.22) !important;
+  color: rgba(240,240,240,.92) !important;
+}
+.cops-wizard select option{
+  background: #e6e6e6 !important;
+  color: #111 !important;
+}
+
+/* Step 1: carac +/- inline colors restoration (we override our generic button skin) */
+.cops-wizard .carac-controls button[style*="background:#4b4"],
+.cops-wizard .carac-controls button[style*="background: #4b4"],
+.cops-wizard .carac-controls button[style*="background:#44bb44"],
+.cops-wizard .carac-controls button[style*="background:rgb(68, 187, 68)"]{
+  background: #3fbe62 !important; /* softer green */
+  border: 1px solid rgba(0,0,0,.65) !important;
+  color: #0b1a0f !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.20);
+}
+.cops-wizard .carac-controls button[style*="background:#d00"],
+.cops-wizard .carac-controls button[style*="background: #d00"],
+.cops-wizard .carac-controls button[style*="background:#dd0000"]{
+  background: #c83838 !important; /* toned red */
+  border: 1px solid rgba(0,0,0,.65) !important;
+  color: #1b0a0a !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.18);
+}
+
+
+/* =========================================================
+   Wizard dropdown v5 — white text on black background
+   ========================================================= */
+
+.cops-wizard select{
+  background: #111 !important;
+  color: #fff !important;
+}
+
+.cops-wizard select option{
+  background: #111 !important;
+  color: #fff !important;
+}
+
+.cops-wizard select:focus{
+  outline: 1px solid rgba(214,168,79,.45);
+  border-color: rgba(214,168,79,.45) !important;
+}
+
+
+
+
+/* --- Pause overlay --------------------------------------------------- */
+@keyframes cops-pause-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+#pause{
+  /* Keep Foundry structure, only skin it */
+  position: absolute !important;
+  top: 68% !important;        /* descend le bandeau */
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.05) !important;
+  background: rgba(0,0,0,.25);
+  border: 2px solid rgba(0,0,0,.55);
+  border-radius: 16px;
+  padding: 16px 20px 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.55);
+}
+
+/* Hide the default Foundry icon; we render our own */
+#pause > img, #pause > svg{
+  display: none !important;
+}
+
+/* Taille logo pause (force) */
+:root{
+  --cops-pause-logo-size: 200px;
+}
+
+#pause::before{
+  content: "" !important;
+  display: block !important;
+
+  width: var(--cops-pause-logo-size) !important;
+   aspect-ratio: 1 / 1;          /* garde une boîte carrée */
+  height: var(--cops-pause-logo-size) !important;
+
+  margin: 4px auto 10px !important;
+
+  background-image: url("../assets/ui/pause-logo.png") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,.55)) !important;
+  animation: cops-pause-spin 10s linear infinite !important;
+  transform-origin: 50% 50% !important;
+}
+
+
+/* Keep Foundry pause text readable */
+#pause::after{
+  text-shadow: 0 2px 0 rgba(0,0,0,.65), 0 10px 24px rgba(0,0,0,.55);
+}
+/* --- Attitude dropdown (ActorSheet) : white on black --- */
+select[name="system.combat.attitude"]{
+  background: #111 !important;
+  color: #fff !important;
+}
+select[name="system.combat.attitude"] option{
+  background: #111 !important;
+  color: #fff !important;
+}

@@ -1,0 +1,87 @@
+{
+  "id": "cops",
+  "title": "COPS",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/cops-v2.css",
+    "styles/cops-theme.css",
+    "styles/cops-industrial-b.css",
+    "styles/cops-ui-global.css"
+  ],
+  "template": "template.json",
+  "packs": [
+    {
+      "name": "competences",
+      "label": "Compétences",
+      "path": "packs/competences",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "stages",
+      "label": "Stages & Formations",
+      "path": "packs/stages",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armes",
+      "label": "Arsenal",
+      "path": "packs/armes",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armures",
+      "label": "Protections",
+      "path": "packs/armures",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "materiel",
+      "label": "Matériel",
+      "path": "packs/materiel",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "contacts",
+      "label": "Carnet d'Adresses",
+      "path": "packs/contacts",
+      "type": "Item",
+      "system": "cops",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ]
+}
