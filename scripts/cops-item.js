@@ -129,12 +129,13 @@ export class CopsItem extends Item {
         else if (myAttitude === "planque") attPoolBonus = -2;
 
         const targets = game.user.targets;
+        const targetToken = (targets?.size > 0) ? targets.first() : null;
         let targetActor = null;
         let targetDefMod = 0;
         let targetAttName = "Normal";
 
         if (targets.size > 0) {
-            targetActor = targets.first().actor;
+            targetActor = targetToken.actor;
             const tAtt = targetActor.system.combat?.attitude || "standard";
             if (tAtt === "ultra") { targetDefMod = -2; targetAttName="Ultra (-2 Succès requis)"; }
             else if (tAtt === "agressif") { targetDefMod = -1; targetAttName="Agressif (-1 Succès requis)"; }

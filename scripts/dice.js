@@ -10,8 +10,8 @@ const { DialogV2 } = foundry.applications.api;
  * de permissions (ActorDelta sur Token non possédé).
  */
 export async function resolveHit(actor, weapon, isBurst, burstCount, target) {
-    let hits = 1;
-    if (isBurst) hits = Math.min(weapon.system.rafaleCourte || 3, burstCount); 
+    const fired = isBurst ? (weapon.system.rafaleCourte || 3) : 1;
+    const hits = isBurst ? Math.min(fired, burstCount) : 1;
 
     // Cible: on accepte Token ou Actor (pour lire l'armure, attitude, etc.)
     const targetActor = target?.actor ?? target;
@@ -23,7 +23,11 @@ export async function resolveHit(actor, weapon, isBurst, burstCount, target) {
     let impactsHtml = "";
     let totalDamageApplied = 0;
 
-    for (let i = 0; i < hits; i++) {
+    for (let i = 0; i < fired; i++) {
+        if (isBurst && i >= hits) {
+            impactsHtml += `<div class="cops-impact-miss">Balle ${i+1} : Manqué (pas assez de réussites)</div>`;
+            continue;
+        }
         const currentLoc = baseLoc + i;
         if (currentLoc > 10) {
             impactsHtml += `<div class="cops-impact-miss">Balle ${i+1} : Manqué (Au dessus)</div>`;
